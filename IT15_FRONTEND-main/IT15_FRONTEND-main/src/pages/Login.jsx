@@ -11,7 +11,12 @@ function Login() {
   const [errorMessage, setErrorMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
-  const apiBase = (import.meta.env.VITE_API_URL || "").replace(/\/+$/, "");
+  const apiBase = (
+    import.meta.env.VITE_API_URL ||
+    import.meta.env.VITE_BACKEND_URL ||
+    ""
+  ).replace(/\/+$/, "");
+  const loginEndpoint = apiBase ? `${apiBase}/api/login` : "/api/login";
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -26,7 +31,7 @@ function Login() {
     try {
       setIsSubmitting(true);
 
-      const response = await fetch(`${apiBase}/api/login`, {
+      const response = await fetch(loginEndpoint, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -38,10 +43,29 @@ function Login() {
         }),
       });
 
-      const data = await response.json();
+      const contentType = response.headers.get("content-type") || "";
+      let data = null;
+
+      if (contentType.includes("application/json")) {
+        try {
+          data = await response.json();
+        } catch {
+          setErrorMessage("Login server returned an invalid response.");
+          return;
+        }
+      } else if (response.ok) {
+        setErrorMessage(
+          "Login server returned an unexpected response format."
+        );
+        return;
+      }
 
       if (!response.ok) {
-        const message = data?.message || "Login failed. Please try again.";
+        const message =
+          data?.message ||
+          (response.status >= 500
+            ? "Unable to connect to the login server. Please make sure the backend is running."
+            : "Login failed. Please try again.");
         setErrorMessage(message);
         return;
       }
