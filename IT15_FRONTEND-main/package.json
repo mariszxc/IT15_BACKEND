@@ -1,0 +1,18 @@
+{
+  "name": "it15_frontend-main",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npm --prefix IT15_FRONTEND-main run dev",
+    "build": "npm --prefix IT15_FRONTEND-main run build",
+    "lint": "npm --prefix IT15_FRONTEND-main run lint",
+    "preview": "npm --prefix IT15_FRONTEND-main run preview",
+    "install:app": "npm --prefix IT15_FRONTEND-main install",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}

@@ -1,0 +1,226 @@
+{
+  "programs": [
+    {
+      "id": "prog-bsit",
+      "code": "BSIT",
+      "name": "Information Technology",
+      "fullName": "Bachelor of Science in Information Technology",
+      "type": "Bachelor's Degree",
+      "duration": "4 years",
+      "durationYears": 4,
+      "totalUnits": 146,
+      "status": "active",
+      "description": "Focuses on software development, infrastructure, and information systems.",
+      "createdAt": "2026-02-15",
+      "yearLevels": {
+        "1st Year": ["IT101", "IT102", "GE101"],
+        "2nd Year": ["IT201", "IT202", "MATH201"],
+        "3rd Year": ["IT301", "IT302", "IT303"],
+        "4th Year": ["IT401", "IT402", "IT403"]
+      }
+    },
+    {
+      "id": "prog-bscs",
+      "code": "BSCS",
+      "name": "Computer Science",
+      "fullName": "Bachelor of Science in Computer Science",
+      "type": "Bachelor's Degree",
+      "duration": "4 years",
+      "durationYears": 4,
+      "totalUnits": 148,
+      "status": "active",
+      "description": "Covers algorithms, theory, systems, and intelligent computing.",
+      "createdAt": "2026-02-17",
+      "yearLevels": {
+        "1st Year": ["CS101", "CS102", "GE101"],
+        "2nd Year": ["CS201", "CS202", "MATH201"],
+        "3rd Year": ["CS301", "CS302", "CS303"],
+        "4th Year": ["CS401", "CS402", "CS403"]
+      }
+    },
+    {
+      "id": "prog-bscpe",
+      "code": "BSCPE",
+      "name": "Computer Engineering",
+      "fullName": "Bachelor of Science in Computer Engineering",
+      "type": "Bachelor's Degree",
+      "duration": "4 years",
+      "durationYears": 4,
+      "totalUnits": 153,
+      "status": "under review",
+      "description": "Blends computer systems design with electronics and embedded engineering.",
+      "createdAt": "2026-01-30",
+      "yearLevels": {
+        "1st Year": ["CPE101", "CPE102", "GE101"],
+        "2nd Year": ["CPE201", "CPE202", "MATH201"],
+        "3rd Year": ["CPE301", "CPE302", "CPE303"],
+        "4th Year": ["CPE401", "CPE402", "CPE403"]
+      }
+    },
+    {
+      "id": "prog-bsis",
+      "code": "BSIS",
+      "name": "Information Systems",
+      "fullName": "Bachelor of Science in Information Systems",
+      "type": "Bachelor's Degree",
+      "duration": "4 years",
+      "durationYears": 4,
+      "totalUnits": 144,
+      "status": "phased out",
+      "description": "Emphasizes enterprise systems, business process analysis, and IT governance.",
+      "createdAt": "2025-12-10",
+      "yearLevels": {
+        "1st Year": ["IS101", "IS102", "GE101"],
+        "2nd Year": ["IS201", "IS202", "MATH201"],
+        "3rd Year": ["IS301", "IS302", "IS303"],
+        "4th Year": ["IS401", "IS402", "IS403"]
+      }
+    }
+  ],
+  "subjects": [
+    {
+      "code": "IT101",
+      "title": "Introduction to Computing",
+      "units": 3,
+      "semesterTerm": "1st Semester",
+      "offeringMode": "semester",
+      "programCode": "BSIT",
+      "description": "Introduces computing concepts, systems, and responsible use of technology.",
+      "prerequisites": [],
+      "corequisites": [],
+      "createdAt": "2026-02-16"
+    },
+    {
+      "code": "IT102",
+      "title": "Computer Programming 1",
+      "units": 3,
+      "semesterTerm": "1st Semester",
+      "offeringMode": "both",
+      "programCode": "BSIT",
+      "description": "Covers problem solving, algorithms, and fundamentals of structured programming.",
+      "prerequisites": [],
+      "corequisites": [],
+      "createdAt": "2026-02-16"
+    },
+    {
+      "code": "IT201",
+      "title": "Data Structures and Algorithms",
+      "units": 3,
+      "semesterTerm": "1st Semester",
+      "offeringMode": "semester",
+      "programCode": "BSIT",
+      "description": "Explores lists, trees, graphs, sorting, and efficient algorithm design.",
+      "prerequisites": ["IT102"],
+      "corequisites": [],
+      "createdAt": "2026-01-26"
+    },
+    {
+      "code": "IT301",
+      "title": "Web Systems and Technologies",
+      "units": 3,
+      "semesterTerm": "2nd Semester",
+      "offeringMode": "both",
+      "programCode": "BSIT",
+      "description": "Builds modern web applications with frontend and backend integration concepts.",
+      "prerequisites": ["IT201"],
+      "corequisites": [],
+      "createdAt": "2026-02-03"
+    },
+    {
+      "code": "CS101",
+      "title": "Discrete Structures",
+      "units": 3,
+      "semesterTerm": "1st Semester",
+      "offeringMode": "semester",
+      "programCode": "BSCS",
+      "description": "Introduces logic, sets, combinatorics, and graph theory for computing.",
+      "prerequisites": [],
+      "corequisites": [],
+      "createdAt": "2026-02-18"
+    },
+    {
+      "code": "CS201",
+      "title": "Object-Oriented Programming",
+      "units": 3,
+      "semesterTerm": "1st Semester",
+      "offeringMode": "both",
+      "programCode": "BSCS",
+      "description": "Introduces classes, inheritance, polymorphism, and object-oriented design.",
+      "prerequisites": ["CS101"],
+      "corequisites": [],
+      "createdAt": "2026-01-22"
+    },
+    {
+      "code": "CS301",
+      "title": "Automata Theory",
+      "units": 3,
+      "semesterTerm": "2nd Semester",
+      "offeringMode": "term",
+      "programCode": "BSCS",
+      "description": "Studies finite automata, grammars, and formal language computation models.",
+      "prerequisites": ["CS201"],
+      "corequisites": [],
+      "createdAt": "2026-02-05"
+    },
+    {
+      "code": "CPE101",
+      "title": "Digital Logic Design",
+      "units": 3,
+      "semesterTerm": "1st Semester",
+      "offeringMode": "semester",
+      "programCode": "BSCPE",
+      "description": "Covers number systems, logic gates, and combinational/sequential circuits.",
+      "prerequisites": [],
+      "corequisites": [],
+      "createdAt": "2026-01-28"
+    },
+    {
+      "code": "CPE201",
+      "title": "Microprocessors",
+      "units": 4,
+      "semesterTerm": "2nd Semester",
+      "offeringMode": "term",
+      "programCode": "BSCPE",
+      "description": "Introduces processor architecture and low-level programming fundamentals.",
+      "prerequisites": ["CPE101"],
+      "corequisites": ["CPE202"],
+      "createdAt": "2026-01-20"
+    },
+    {
+      "code": "IS101",
+      "title": "Fundamentals of Information Systems",
+      "units": 3,
+      "semesterTerm": "1st Term",
+      "offeringMode": "term",
+      "programCode": "BSIS",
+      "description": "Introduces IT-enabled business processes and information system components.",
+      "prerequisites": [],
+      "corequisites": [],
+      "createdAt": "2025-12-11"
+    },
+    {
+      "code": "GE101",
+      "title": "Purposive Communication",
+      "units": 3,
+      "semesterTerm": "1st Semester",
+      "offeringMode": "both",
+      "programCode": "General",
+      "description": "Develops communication skills for academic and professional contexts.",
+      "prerequisites": [],
+      "corequisites": [],
+      "createdAt": "2026-01-18"
+    },
+    {
+      "code": "MATH201",
+      "title": "Calculus for Computing",
+      "units": 4,
+      "semesterTerm": "2nd Semester",
+      "offeringMode": "semester",
+      "programCode": "General",
+      "description": "Applies differential and integral calculus to computing-related problems.",
+      "prerequisites": ["GE101"],
+      "corequisites": [],
+      "createdAt": "2026-01-19"
+    }
+  ]
+}
