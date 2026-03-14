@@ -14,24 +14,34 @@ class SchoolDaySeeder extends Seeder
      */
     public function run(): void
     {
-        $year = (int) now()->format('Y');
-        $start = Carbon::create($year, 1, 1);
-        $end = Carbon::create($year, 12, 31);
+        [$start, $end] = $this->schoolYearToDateRange();
+        $startYear = (int) $start->format('Y');
+        $nextYear = $startYear + 1;
+
+        SchoolDay::query()
+            ->where('date', '<', $start->toDateString())
+            ->orWhere('date', '>', $end->toDateString())
+            ->delete();
 
         $holidayEvents = [
-            "$year-01-01" => 'New Year Holiday',
-            "$year-04-09" => 'Founders Day',
-            "$year-05-01" => 'Labor Day',
-            "$year-11-01" => 'School Break',
-            "$year-12-25" => 'Christmas Day',
+            "$nextYear-01-01" => 'New Year Holiday',
+            "$nextYear-04-09" => 'Araw ng Kagitingan',
+            "$nextYear-05-01" => 'Labor Day',
+            "$startYear-11-01" => 'All Saints Day',
+            "$startYear-11-30" => 'Bonifacio Day',
+            "$startYear-12-25" => 'Christmas Day',
+            "$startYear-12-30" => 'Rizal Day',
         ];
 
         $schoolEvents = [
-            "$year-03-15" => 'Midterm Exams',
-            "$year-06-15" => 'Science Fair',
-            "$year-09-01" => 'First Semester Opening',
-            "$year-10-20" => 'Sports Festival',
-            "$year-12-10" => 'Final Exams',
+            "$startYear-06-10" => 'First Semester Opening',
+            "$startYear-08-22" => 'Academic Fest',
+            "$startYear-10-18" => 'Intramurals Week Opening',
+            "$startYear-10-19" => 'Intramurals - Basketball Finals',
+            "$startYear-10-20" => 'Intramurals - Cultural Showcase',
+            "$startYear-12-10" => 'Final Exams',
+            "$nextYear-02-14" => 'Feb-ibig Campus Celebration',
+            "$nextYear-03-15" => 'Midterm Exams',
         ];
 
         foreach (CarbonPeriod::create($start, $end) as $date) {
@@ -55,5 +65,15 @@ class SchoolDaySeeder extends Seeder
                 ]
             );
         }
+    }
+
+    private function schoolYearToDateRange(): array
+    {
+        $now = now();
+        $startYear = $now->month >= 6 ? $now->year : $now->year - 1;
+
+        $start = Carbon::create($startYear, 6, 1)->startOfDay();
+
+        return [$start, $now->endOfDay()];
     }
 }

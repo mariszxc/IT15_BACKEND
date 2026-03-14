@@ -10,6 +10,30 @@ use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
+    public function register(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'max:255', 'unique:users,email'],
+            'password' => ['required', 'string', 'min:8'],
+        ]);
+
+        $email = Str::lower(trim($validated['email']));
+
+        $user = User::create([
+            'name' => trim($validated['name']),
+            'email' => $email,
+            'password' => $validated['password'],
+        ]);
+
+        $token = $user->createToken('react-app')->plainTextToken;
+
+        return response()->json([
+            'user' => $user,
+            'token' => $token,
+        ], 201);
+    }
+
     public function login(Request $request)
     {
         $validated = $request->validate([
@@ -23,24 +47,12 @@ class AuthController extends Controller
         $user = User::whereRaw('LOWER(email) = ?', [$email])->first();
 
         if (!$user) {
-            // Auto-provision account on first login attempt for this school project flow.
-            $user = User::create([
-                'name' => Str::title(Str::before($email, '@')) ?: 'Student User',
-                'email' => $email,
-                'password' => $plainPassword,
-            ]);
+            return response()->json([
+                'message' => 'Invalid credentials'
+            ], 401);
         }
 
-        $passwordMatches = Hash::check($plainPassword, (string) $user->password);
-
-        if (!$passwordMatches && hash_equals((string) $user->password, $plainPassword)) {
-            // Migrate legacy plain-text passwords to hashed values after first successful login.
-            $user->password = $plainPassword;
-            $user->save();
-            $passwordMatches = true;
-        }
-
-        if (!$passwordMatches) {
+        if (!Hash::check($plainPassword, (string) $user->password)) {
             return response()->json([
                 'message' => 'Invalid credentials'
             ], 401);

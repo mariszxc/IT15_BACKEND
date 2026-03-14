@@ -10,6 +10,25 @@ use Throwable;
 
 class WeatherController extends Controller
 {
+    public function current(Request $request): JsonResponse
+    {
+        $response = $this->forecast($request);
+        $status = $response->getStatusCode();
+        $payload = $response->getData(true);
+
+        if (!is_array($payload)) {
+            return $response;
+        }
+
+        return response()->json([
+            'message' => $payload['message'] ?? 'Weather loaded successfully.',
+            'query' => $payload['query'] ?? null,
+            'location' => $payload['location'] ?? null,
+            'current' => $payload['current'] ?? null,
+            'source' => $payload['source'] ?? null,
+        ], $status);
+    }
+
     public function forecast(Request $request): JsonResponse
     {
         $validated = $request->validate([

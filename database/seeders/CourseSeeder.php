@@ -13,27 +13,33 @@ class CourseSeeder extends Seeder
     public function run(): void
     {
         $courses = [
-            ['code' => 'CS101', 'name' => 'Intro to Programming', 'department' => 'Computer Science', 'credits' => 3],
-            ['code' => 'CS201', 'name' => 'Data Structures', 'department' => 'Computer Science', 'credits' => 4],
-            ['code' => 'CS301', 'name' => 'Database Systems', 'department' => 'Computer Science', 'credits' => 3],
-            ['code' => 'CS305', 'name' => 'Web Development', 'department' => 'Computer Science', 'credits' => 3],
-            ['code' => 'MATH101', 'name' => 'College Algebra', 'department' => 'Mathematics', 'credits' => 3],
-            ['code' => 'MATH205', 'name' => 'Calculus I', 'department' => 'Mathematics', 'credits' => 4],
-            ['code' => 'MATH220', 'name' => 'Statistics', 'department' => 'Mathematics', 'credits' => 3],
-            ['code' => 'PHY101', 'name' => 'General Physics', 'department' => 'Physics', 'credits' => 4],
-            ['code' => 'PHY210', 'name' => 'Modern Physics', 'department' => 'Physics', 'credits' => 3],
-            ['code' => 'CHEM101', 'name' => 'General Chemistry', 'department' => 'Chemistry', 'credits' => 4],
-            ['code' => 'BIO101', 'name' => 'Biology Fundamentals', 'department' => 'Biology', 'credits' => 3],
-            ['code' => 'ENG101', 'name' => 'English Composition', 'department' => 'Humanities', 'credits' => 3],
-            ['code' => 'ENG220', 'name' => 'World Literature', 'department' => 'Humanities', 'credits' => 3],
-            ['code' => 'HIST101', 'name' => 'World History', 'department' => 'Humanities', 'credits' => 3],
-            ['code' => 'ECON101', 'name' => 'Microeconomics', 'department' => 'Business', 'credits' => 3],
-            ['code' => 'ECON102', 'name' => 'Macroeconomics', 'department' => 'Business', 'credits' => 3],
-            ['code' => 'BUS201', 'name' => 'Principles of Management', 'department' => 'Business', 'credits' => 3],
-            ['code' => 'PSY101', 'name' => 'Introduction to Psychology', 'department' => 'Social Science', 'credits' => 3],
-            ['code' => 'SOC101', 'name' => 'Introduction to Sociology', 'department' => 'Social Science', 'credits' => 3],
-            ['code' => 'PE101', 'name' => 'Health and Wellness', 'department' => 'Physical Education', 'credits' => 2],
+            ['code' => 'BSIT', 'name' => 'Bachelor of Science in Information Technology', 'department' => 'College of Computing', 'credits' => 3],
+            ['code' => 'BSIS', 'name' => 'Bachelor of Science in Information Systems', 'department' => 'College of Computing', 'credits' => 3],
+            ['code' => 'BSCS', 'name' => 'Bachelor of Science in Computer Science', 'department' => 'College of Computing', 'credits' => 3],
+            ['code' => 'BSCPE', 'name' => 'Bachelor of Science in Computer Engineering', 'department' => 'College of Engineering', 'credits' => 3],
+            ['code' => 'BSCE', 'name' => 'Bachelor of Science in Civil Engineering', 'department' => 'College of Engineering', 'credits' => 3],
+            ['code' => 'BSEE', 'name' => 'Bachelor of Science in Electrical Engineering', 'department' => 'College of Engineering', 'credits' => 3],
+            ['code' => 'BSME', 'name' => 'Bachelor of Science in Mechanical Engineering', 'department' => 'College of Engineering', 'credits' => 3],
+            ['code' => 'BSAE', 'name' => 'Bachelor of Science in Agricultural Engineering', 'department' => 'College of Engineering', 'credits' => 3],
+            ['code' => 'BSBA', 'name' => 'Bachelor of Science in Business Administration', 'department' => 'College of Business and Accountancy', 'credits' => 3],
+            ['code' => 'BSA', 'name' => 'Bachelor of Science in Accountancy', 'department' => 'College of Business and Accountancy', 'credits' => 3],
+            ['code' => 'BSENTREP', 'name' => 'Bachelor of Science in Entrepreneurship', 'department' => 'College of Business and Accountancy', 'credits' => 3],
+            ['code' => 'BSHM', 'name' => 'Bachelor of Science in Hospitality Management', 'department' => 'College of Hospitality and Tourism', 'credits' => 3],
+            ['code' => 'BSTM', 'name' => 'Bachelor of Science in Tourism Management', 'department' => 'College of Hospitality and Tourism', 'credits' => 3],
+            ['code' => 'BEED', 'name' => 'Bachelor of Elementary Education', 'department' => 'College of Education', 'credits' => 3],
+            ['code' => 'BSED', 'name' => 'Bachelor of Secondary Education', 'department' => 'College of Education', 'credits' => 3],
+            ['code' => 'BSN', 'name' => 'Bachelor of Science in Nursing', 'department' => 'College of Nursing and Allied Health', 'credits' => 3],
+            ['code' => 'BSPHARM', 'name' => 'Bachelor of Science in Pharmacy', 'department' => 'College of Nursing and Allied Health', 'credits' => 3],
+            ['code' => 'BSCRIM', 'name' => 'Bachelor of Science in Criminology', 'department' => 'College of Criminal Justice Education', 'credits' => 3],
+            ['code' => 'ABCOMM', 'name' => 'Bachelor of Arts in Communication', 'department' => 'College of Arts and Sciences', 'credits' => 3],
+            ['code' => 'BSPSYCH', 'name' => 'Bachelor of Science in Psychology', 'department' => 'College of Arts and Sciences', 'credits' => 3],
         ];
+
+        $courseCodes = collect($courses)->pluck('code')->all();
+
+        Course::query()
+            ->whereNotIn('code', $courseCodes)
+            ->delete();
 
         foreach ($courses as $course) {
             Course::updateOrCreate(

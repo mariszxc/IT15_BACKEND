@@ -9,9 +9,12 @@ use Illuminate\Validation\Rule;
 
 class StudentController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $students = Student::with('courses:id,name,code')->latest()->paginate(25);
+        $perPage = (int) $request->query('per_page', 25);
+        $perPage = max(1, min($perPage, 500));
+
+        $students = Student::with('courses:id,name,code')->latest()->paginate($perPage);
 
         return StudentResource::collection($students);
     }

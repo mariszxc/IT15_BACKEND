@@ -9,9 +9,14 @@ use Illuminate\Validation\Rule;
 
 class SchoolDayController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return SchoolDayResource::collection(SchoolDay::orderBy('date', 'desc')->paginate(30));
+        $perPage = (int) $request->query('per_page', 30);
+        $perPage = max(1, min($perPage, 366));
+
+        return SchoolDayResource::collection(
+            SchoolDay::orderBy('date', 'desc')->paginate($perPage)
+        );
     }
 
     public function store(Request $request)

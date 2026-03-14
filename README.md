@@ -1,59 +1,80 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# IT15 Backend (Laravel REST API)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Laravel backend for the Student Portal dashboard project.
 
-## About Laravel
+## Requirements Coverage
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- REST API for authentication, dashboard analytics, students, courses/programs/subjects, and school days
+- Laravel Sanctum token authentication
+- Protected API routes with auth:sanctum
+- Weather endpoints with throttling and graceful fallback handling
+- Seeder data for:
+  - minimum 500 student records
+  - minimum 20 courses
+  - full-year school day calendar with holidays/events/attendance
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Tech Stack
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Laravel 12
+- Laravel Sanctum
+- MySQL or PostgreSQL
 
-## Learning Laravel
+## Setup Instructions
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+### 1) Install dependencies
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- composer install
 
-## Laravel Sponsors
+### 2) Configure environment
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- copy .env.example .env
+- Set DB credentials in .env
 
-### Premium Partners
+### 3) Generate key and run database
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+- php artisan key:generate
+- php artisan migrate --seed
 
-## Contributing
+### 4) Run backend server
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- php artisan serve
 
-## Code of Conduct
+Default local URL:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- http://127.0.0.1:8000
 
-## Security Vulnerabilities
+## API Endpoints
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Public
 
-## License
+- POST /api/register
+- POST /api/login
+- GET /api/weather/current
+- GET /api/weather/forecast
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Protected (Bearer token required)
+
+- POST /api/logout
+- GET /api/me
+- GET /api/dashboard
+- GET|POST|PUT|PATCH|DELETE /api/students
+- GET|POST|PUT|PATCH|DELETE /api/courses
+- GET|POST|PUT|PATCH|DELETE /api/programs
+- GET|POST|PUT|PATCH|DELETE /api/subjects
+- GET|POST|PUT|PATCH|DELETE /api/school-days
+
+## Sample Auth Flow
+
+1. Register:
+   - POST /api/register
+2. Login:
+   - POST /api/login
+3. Use token:
+   - Authorization: Bearer <token>
+4. Validate session:
+   - GET /api/me
+
+## Notes
+
+- Weather API is rate limited through the weather limiter.
+- If third-party weather/geocoding providers are temporarily unreachable, fallback weather payload is returned so frontend can still render.
