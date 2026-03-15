@@ -45,6 +45,10 @@ class StudentController extends Controller
             'phone_number' => 'N/A',
         ], collect($validated)->except('course_ids')->toArray());
 
+        if (empty($payload['student_number'])) {
+            $payload['student_number'] = $this->generateStudentNumber();
+        }
+
         $student = Student::create($payload);
 
         if (!empty($validated['course_ids'])) {
@@ -90,5 +94,16 @@ class StudentController extends Controller
         $student->delete();
 
         return response()->json(['message' => 'Student deleted.']);
+    }
+
+    private function generateStudentNumber(): string
+    {
+        $max = Student::query()
+            ->pluck('student_number')
+            ->filter(fn ($value) => is_string($value) && preg_match('/^\d{1,6}$/', $value))
+            ->map(fn ($value) => (int) $value)
+            ->max() ?? 0;
+
+        return str_pad((string) ($max + 1), 6, '0', STR_PAD_LEFT);
     }
 }
