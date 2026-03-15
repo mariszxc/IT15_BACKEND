@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController as ApiAuthController;
+use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EnrollmentRecordController;
 use App\Http\Controllers\SchoolDayController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\WeatherController;
@@ -41,4 +43,10 @@ Route::middleware(['auth:sanctum', 'auth.context'])->group(function () {
     Route::apiResource('programs', CourseController::class)->parameters(['programs' => 'course']);
     Route::apiResource('subjects', CourseController::class)->parameters(['subjects' => 'course']);
     Route::apiResource('school-days', SchoolDayController::class);
+
+    Route::get('enrollments', [EnrollmentRecordController::class, 'index']);
+    Route::post('enrollments', [EnrollmentRecordController::class, 'store']);
+
+    Route::get('activities', [ActivityLogController::class, 'index']);
+    Route::post('activities', [ActivityLogController::class, 'store']);
 });
